@@ -1,0 +1,44 @@
+plugins {
+    id 'java'
+}
+
+group 'WireMock'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'org.testng', name: 'testng', version: '6.14.3'
+    compile 'org.hamcrest:java-hamcrest:2.0.0.0'
+    testCompile 'io.rest-assured:rest-assured:3.1.0'
+    compile group: 'com.codeborne', name: 'selenide', version: '4.12.3'
+    testCompile "com.github.tomakehurst:wiremock-standalone:2.19.0"
+}
+
+/*
+to use json file for body you need to create '__files' directory inside resources.
+                        Looks like WireMock is looking files in '__files' directory by default.
+
+                        There are a bunch of arguments you can specify, for example the port number.
+                        In order to be able to configure the server you have to create two folders:
+                        mappings and __files. In mappings you can place your .json configuration files,
+                        where you describe the endpoints you want to mock and how they should respond.
+                        In __files you can place files containing the body of your responses.
+ */
+
+/*
+    Another method of using returned body (suger):
+    Third, we can configure the HTTP status code, content type, and body of the returned HTTP response
+    by using the static factory methods of the WireMock class. We can use one of these three methods:
+
+ - The okJson(String json) method returns the HTTP status code 200, sets the content type of the HTTP response
+ to application/json, and returns the JSON document given as a method parameter.
+ - The okXml(String xml) method returns the HTTP status code 200, sets the content type of the HTTP response
+ to application/xml, and returns the XML document given as a method parameter.
+ - The textXml(String xml) method returns the HTTP status code 200, sets the content type of the HTTP response
+ to text/xml, and returns the XML document given as a method parameter.
+     */

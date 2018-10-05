@@ -1,0 +1,18 @@
+{
+  "data": [
+    {
+      "id": 5848,
+      "navigation": {
+        "id": 4906,
+        "voiceover": "Stenmalen",
+        "display": "Stenmalen",
+        "icon_id": null,
+        "links": {
+          "rel": "self",
+          "uri": "/api/placenavigation/4906"
+        }
+      },
+      "radius": 70
+    }
+  ]
+}
