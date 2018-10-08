@@ -10,24 +10,28 @@ import static org.hamcrest.Matchers.is;
 
 public class WireMock_basic_post {
 
-    private WireMockServer wireMockServer = new WireMockServer();
+    private WireMockServer wireMockServer;
 
     @BeforeSuite(description = "POST request")
-    public void setupWireMockServer() {
+    public void setup() {
+        wireMockServer = new WireMockServer(8080);
         wireMockServer.start();
-        configureFor("localhost", 8080);
+        setupStub();
+    }
 
+    @AfterSuite
+    public void tearDown() {
+        wireMockServer.stop();
+    }
+
+    @Test
+    public void setupStub() {
         stubFor(post(urlEqualTo("/pingpong"))
                 .withRequestBody(matching("<input>PING</input>"))
                 .willReturn(aResponse()
                         .withStatus(200)
                         .withHeader("Content-Type", "application/xml")
                         .withBody("<output>PONG</output>")));
-    }
-
-    @AfterSuite
-    public void closeWireMockServer() {
-        wireMockServer.stop();
     }
 
 
@@ -46,3 +50,14 @@ public class WireMock_basic_post {
                 .log().body();
     }
 }
+
+/*
+stubFor(any(urlPathEqualTo("/everything"))
+  .withHeader("Accept", containing("xml"))
+  .withCookie("session", matching(".*12345.*"))
+  .withQueryParam("search_term", equalTo("WireMock"))
+  .withBasicAuth("jeff@example.com", "jeffteenjefftyjeff")
+  .withRequestBody(equalToXml("<search-results />"))
+  .withRequestBody(matchingXPath("//search-results"))
+  .willReturn(aResponse()));
+ */

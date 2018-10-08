@@ -78,3 +78,28 @@ public class WireMock_stateful_scenario {
                 .body("list.item", Matchers.equalTo("Item added to list"));
     }
 }
+
+/*
+// First StubMapping
+stubFor(get(urlEqualTo("/my/resource"))
+        .withHeader("Accept", equalTo("text/xml"))
+        .inScenario("Retry Scenario")
+        .whenScenarioStateIs(STARTED)
+        .willReturn(aResponse()
+            .withStatus(500) // request unsuccessful with status code 500
+            .withHeader("Content-Type", "text/xml")
+            .withBody("<response>Some content</response>"))
+        .willSetStateTo("Cause Success")););
+
+// Second StubMapping
+stubFor(get(urlEqualTo("/my/resource"))
+        .withHeader("Accept", equalTo("text/xml"))
+        .inScenario("Retry Scenario")
+        .whenScenarioStateIs("Cause Success")
+        .willReturn(aResponse()
+            .withStatus(200)  // request successful with status code 200
+            .withHeader("Content-Type", "text/xml")
+            .withBody("<response>Some content</response>")));
+
+https://github.com/mmcc007/wiremock-example/blob/master/src/test/java/com/ontestautomation/wiremock/StatefulMockTest.java
+ */

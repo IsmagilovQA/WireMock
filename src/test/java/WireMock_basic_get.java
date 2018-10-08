@@ -19,11 +19,11 @@ public class WireMock_basic_get {
 
     @BeforeSuite(description = "GET request")
     public void setup() {
-
         wireMockServer = new WireMockServer(8080);
         wireMockServer.start(); // start server
         setupStub();
     }
+
 
     @Test (description = "Define stub")
     public void setupStub() {
@@ -42,7 +42,7 @@ public class WireMock_basic_get {
     }
 
     @AfterSuite
-    public void closeWireMockServer() {
+    public void tearDown() {
         wireMockServer.stop(); // stop server
     }
 
