@@ -14,19 +14,23 @@ import static org.hamcrest.Matchers.is;
 
 public class WireMock_basic_get {
 
-    private WireMockServer wireMockServer = new WireMockServer(); // the server host defaults to localhost and the server port to 8080
+    private WireMockServer wireMockServer;
 
 
     @BeforeSuite(description = "GET request")
-    public void setupWireMockServer() {
+    public void setup() {
 
+        wireMockServer = new WireMockServer(8080);
+        wireMockServer.start(); // start server
+        setupStub();
+    }
+
+    @Test (description = "Define stub")
+    public void setupStub() {
         HttpHeaders multiple_headers = new HttpHeaders(             // in case Headers
                 new HttpHeader("Name 1", "Value 1"),
                 new HttpHeader("Name 2", "Value 2")
         );
-
-        wireMockServer.start(); // start server
-        configureFor("localhost", 8080);
 
         stubFor(get(urlEqualTo("/an/endpoint"))
                 .willReturn(aResponse()
