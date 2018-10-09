@@ -9,7 +9,7 @@ import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.is;
 
 
-public class WireMock_withCookie_Header_Param {
+public class WireMock_withCookie_Header_Param_Auth {
 
     private WireMockServer wireMockServer;
 
